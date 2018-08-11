@@ -1,11 +1,18 @@
 package com.udacity.gradle.builditbigger;
-
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+
+import com.keyeonacole.funny.funnyActivity;
+
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,8 +47,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        Random rand = new Random();
+        String position = String.valueOf(rand.nextInt(24) - 1);
+        try {
+            String response = new EndpointsAsyncTask().execute(new Pair<Context, String>(this, position)).get();
+            launchLibraryActivity(view, response);
+
+            Log.i("ResponseMT", response);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void launchLibraryActivity(View view, String joke) {
+        Intent myIntent = new Intent(this, funnyActivity.class);
+        myIntent.putExtra("jokes", joke);
+        startActivity(myIntent);
+    }
+
+
 
 
 }
