@@ -15,7 +15,6 @@ import static org.hamcrest.CoreMatchers.not;
 
 @RunWith(AndroidJUnit4.class)
 public class asyncTest {
-
     public static final String TEST_THIS = "";
 
     @Rule
@@ -24,11 +23,10 @@ public class asyncTest {
     @Test
     public void checkButtonResponse() {
         onView(withId(R.id.jokeButton)).perform(click());
-        //Is it really testing this should FAIL is this test is performed. UnComment to test, test
+        //Is it really testing? This should FAILE if this test is performed and this line is
+        //commented out
         //onView(withId(R.id.android_lib_textview)).check(matches(withText("FAKE_STRING")));
         onView(withId(R.id.android_lib_textview)).check(matches(not(withText(TEST_THIS))));
-
-
     }
 
     @Test
