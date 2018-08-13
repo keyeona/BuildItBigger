@@ -52,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             String response = new EndpointsAsyncTask().execute(new Pair<Context, String>(this, position)).get();
             launchLibraryActivity(view, response);
-
-            Log.i("ResponseMT", response);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
